@@ -64,7 +64,7 @@ exports.receivePayment = async function(req, res) {
                 var originalResponse = document.getElementsByTagName('original');
 
                 //var nodeById = document.getElementById('someId');
-                var responseError = document.getElementsById('errorCode');
+                var responseError = document.getElementById('errorCode');
                 var responseDescription = document.getElementsByTagName('description');
                 var responseReturn = document.getElementsByTagName('return');
                 var responseOriginal = document.getElementsByTagName('original');
@@ -86,9 +86,9 @@ exports.receivePayment = async function(req, res) {
                 '\nOriginal: ' + responseOriginal + 
                 '\nTransactio ID: ' + responseTransaction +
                 '\n\n*** ORIGINAL DETAILS ***' + 
-                '\nError Code: ' + document.getElementsById('errorCode') +
-                '\nMessage: ' + document.getElementsById('message') +
-                '\nRequest ID:' + document.getElementsById('reqeustid');
+                '\nError Code: ' + document.getElementById('errorCode') +
+                '\nMessage: ' + document.getElementById('message') +
+                '\nRequest ID:' + document.getElementById('reqeustid');
 
                 res.send(response);
             }
