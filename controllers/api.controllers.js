@@ -61,23 +61,28 @@ exports.receivePayment = async function(req, res) {
                 var document = DOMParser.parseFromString(resp.body);
 
                 var responseError = xpath.select("//error", document); //document.getElementById('error');
-                var responseDescription = xpath.select("//description", document); //document.getElementsByTagName('description');
-                var responseReturn = xpath.select("//return", document); //document.getElementsByTagName('return');
+                //var responseDescription = xpath.select("//description", document); //document.getElementsByTagName('description');
+                //var responseReturn = xpath.select("//return", document); //document.getElementsByTagName('return');
                 var responseOriginal = xpath.select("//original", document); //document.getElementsByTagName('original');
                 var responseTransaction = xpath.select("//gwtransid", document); //document.getElementsByTagName('gwtransid');
                 var originalResponse = responseOriginal[0].firstChild;
                 originalResponse = replaceAll(originalResponse, '&lt;', '<'); //originalResponse.toString().replaceAll('&lt;', '<');
 
+                var original = DOMParser.parseFromString(originalResponse);
+                var originalError = xpath.select("//errorCode", original); 
+                var originalMessage = xpath.select("//message", original); 
+                var originalRequest = xpath.select("//reqeustid", original); 
+
                 var response = 'Error: ' + responseError[0].firstChild +
                 //'\nDescription: ' + responseDescription[0].firstChild + 
                 //'\nReturn: ' + responseReturn[0].firstChild + 
-                '\nOriginal: ' + responseOriginal[0].firstChild + 
+                //'\nOriginal: ' + responseOriginal[0].firstChild + 
                 '\nTransactio ID: ' + responseTransaction[0].firstChild +
                 '\n\n*** ORIGINAL RESPONSE ***' + 
-                '\nOriginal XML: ' + originalResponse;/* 
-                '\nError Code: ' + document.getElementById('errorCode') +
-                '\nMessage: ' + document.getElementById('message') +
-                '\nRequest ID:' + document.getElementById('reqeustid')*/;
+                //'\nOriginal XML: ' + originalResponse; 
+                '\nError Code: ' + originalError[0].firstChild +
+                '\nMessage: ' + originalMessage[0].firstChild +
+                '\nRequest ID:' + originalRequest[0].firstChild;
 
                 console.log('*** SUCCESS ***\n' + originalResponse + '\n*** END SUCCESS ***');
                 res.send(response);
@@ -88,7 +93,7 @@ exports.receivePayment = async function(req, res) {
 exports.sendPayment = async function(req, res) {
     var phoneNumber = '861401090';
     var messageText = 'Test e-Mola API';
-    var amount = 1;
+    var amount = 2;
     var transId = randomString(30, 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890');;
 
     var reqText = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' " +
@@ -121,13 +126,34 @@ exports.sendPayment = async function(req, res) {
                 console.log('*** ERROR ***\n ' + error + '\n *** END ERROR ***');
                 res.send(error);
             } else {
-                console.log('*** SUCCESS ***\n' + resp.body + '\n*** END SUCCESS ***');
-                var response = '';
-                parseString(req.body, function (err, result) {
-                    response = result;
-                    res.send(result);
-                });
-                //var response = xmlHandler.xmlToJson(null, req.body, null);
+                var document = DOMParser.parseFromString(resp.body);
+
+                var responseError = xpath.select("//error", document); //document.getElementById('error');
+                //var responseDescription = xpath.select("//description", document); //document.getElementsByTagName('description');
+                //var responseReturn = xpath.select("//return", document); //document.getElementsByTagName('return');
+                var responseOriginal = xpath.select("//original", document); //document.getElementsByTagName('original');
+                var responseTransaction = xpath.select("//gwtransid", document); //document.getElementsByTagName('gwtransid');
+                var originalResponse = responseOriginal[0].firstChild;
+                originalResponse = replaceAll(originalResponse, '&lt;', '<'); //originalResponse.toString().replaceAll('&lt;', '<');
+
+                var original = DOMParser.parseFromString(originalResponse);
+                var originalError = xpath.select("//errorCode", original); 
+                var originalMessage = xpath.select("//message", original); 
+                var originalRequest = xpath.select("//reqeustid", original); 
+
+                var response = 'Error: ' + responseError[0].firstChild +
+                //'\nDescription: ' + responseDescription[0].firstChild + 
+                //'\nReturn: ' + responseReturn[0].firstChild + 
+                //'\nOriginal: ' + responseOriginal[0].firstChild + 
+                '\nTransactio ID: ' + responseTransaction[0].firstChild +
+                '\n\n*** ORIGINAL RESPONSE ***' + 
+                //'\nOriginal XML: ' + originalResponse; 
+                '\nError Code: ' + originalError[0].firstChild +
+                '\nMessage: ' + originalMessage[0].firstChild +
+                '\nRequest ID:' + originalRequest[0].firstChild;
+
+                console.log('*** SUCCESS ***\n' + originalResponse + '\n*** END SUCCESS ***');
+                res.send(response);
             }
         });
 
