@@ -1,6 +1,7 @@
 const request = require('request');
 const strongSoap = require('strong-soap').soap;
 const XMLHandler = strongSoap.XMLHandler;
+var DOMParser = new (require('xmldom')).DOMParser;
 const parseString = require('xml2js').parseString;
 const url = 'http://localhost:5000/';
 const apiUrl = 'http://10.229.16.29:8520/BCCSGateway/BCCSGateway?wsdl'; 
@@ -60,11 +61,26 @@ exports.receivePayment = async function(req, res) {
             } else {
                 console.log('*** SUCCESS ***\n' + resp.body + '\n*** END SUCCESS ***');
                 var response = '';
+                var document = DOMParser.parseFromString(resp.body);
+                //var nodeById = document.getElementById('someId');
+                var responseError = document.getElementsByTagName('error');
+                var responseDescription = document.getElementsByTagName('description');
+                var responseReturn = document.getElementsByTagName('return');
+                var responseOriginal = document.getElementsByTagName('original');
+                var responseTransaction = document.getElementsByTagName('gwtransid');
+                /*
                 parseString(req.body, function (err, result) {
                     response = result;
                     res.send(result);
                 });
                 //var response = xmlHandler.xmlToJson(null, req.body, null);
+                */
+
+                response = 'Error Code: ' + responseError +
+                '\nDescription: ' + responseDescription + 
+                '\nReturn: ' + responseReturn + 
+                '\nOriginal: ' + responseOriginal + 
+                '\nTransactio ID: ' + responseTransaction;
             }
         });
 };
