@@ -64,13 +64,13 @@ exports.receivePayment = async function(req, res) {
                 var originalResponse = document.getElementsByTagName('original');
 
                 //var nodeById = document.getElementById('someId');
-                var responseError = document.getElementById('errorCode');
+                var responseError = document.getElementById('error');
                 var responseDescription = document.getElementsByTagName('description');
                 var responseReturn = document.getElementsByTagName('return');
                 var responseOriginal = document.getElementsByTagName('original');
                 var responseTransaction = document.getElementsByTagName('gwtransid');
 
-                document = DOMParser.parseFromString(responseOriginal);
+                //document = DOMParser.parseFromString(responseOriginal);
 
                 /*
                 parseString(req.body, function (err, result) {
@@ -84,11 +84,11 @@ exports.receivePayment = async function(req, res) {
                 '\nDescription: ' + responseDescription + 
                 '\nReturn: ' + responseReturn + 
                 '\nOriginal: ' + responseOriginal + 
-                '\nTransactio ID: ' + responseTransaction +
+                '\nTransactio ID: ' + responseTransaction/* +
                 '\n\n*** ORIGINAL DETAILS ***' + 
                 '\nError Code: ' + document.getElementById('errorCode') +
                 '\nMessage: ' + document.getElementById('message') +
-                '\nRequest ID:' + document.getElementById('reqeustid');
+                '\nRequest ID:' + document.getElementById('reqeustid')*/;
 
                 res.send(response);
             }
