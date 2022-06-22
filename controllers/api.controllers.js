@@ -1,10 +1,10 @@
 const request = require('request');
-const strongSoap = require('strong-soap').soap;
+//const strongSoap = require('strong-soap').soap;
 const xpath = require('xpath');
 //    , var XMLHandler = strongSoap.XMLHandler;
 var DOMParser = new (require('xmldom')).DOMParser;
-const parseString = require('xml2js').parseString;
-const url = 'http://localhost:5000/';
+//const parseString = require('xml2js').parseString;
+//const url = 'http://localhost:5000/';
 const apiUrl = 'http://10.229.16.29:8520/BCCSGateway/BCCSGateway?wsdl'; 
 const userName = 'd609baa5ba374a7e89f74f99c33ad761';
 const passWord = '09671efad19a4d85f2960fde2812339e';
@@ -64,22 +64,11 @@ exports.receivePayment = async function(req, res) {
                 var document = DOMParser.parseFromString(resp.body);
                 var originalResponse = document.getElementsByTagName('original');
 
-                //var nodeById = document.getElementById('someId');
                 var responseError = xpath.select("//error", document); //document.getElementById('error');
                 var responseDescription = xpath.select("//description", document); //document.getElementsByTagName('description');
                 var responseReturn = xpath.select("//return", document); //document.getElementsByTagName('return');
                 var responseOriginal = xpath.select("//original", document); //document.getElementsByTagName('original');
                 var responseTransaction = xpath.select("//gwtransid", document); //document.getElementsByTagName('gwtransid');
-
-                //document = DOMParser.parseFromString(responseOriginal);
-
-                /*
-                parseString(req.body, function (err, result) {
-                    response = result;
-                    res.send(result);
-                });
-                //var response = xmlHandler.xmlToJson(null, req.body, null);
-                */
 
                 var response = 'Error: ' + responseError +
                 '\nDescription: ' + responseDescription + 
