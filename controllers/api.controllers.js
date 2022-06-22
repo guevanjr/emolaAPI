@@ -1,10 +1,6 @@
 const request = require('request');
-//const strongSoap = require('strong-soap').soap;
 const xpath = require('xpath');
-//    , var XMLHandler = strongSoap.XMLHandler;
 var DOMParser = new (require('xmldom')).DOMParser;
-//const parseString = require('xml2js').parseString;
-//const url = 'http://localhost:5000/';
 const apiUrl = 'http://10.229.16.29:8520/BCCSGateway/BCCSGateway?wsdl'; 
 const userName = 'd609baa5ba374a7e89f74f99c33ad761';
 const passWord = '09671efad19a4d85f2960fde2812339e';
@@ -25,8 +21,6 @@ exports.receivePayment = async function(req, res) {
     var transId = randomString(30, 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890');
     var language = 'pt';
     var refNo = '9876543210';
-
-    var xmlHandler = new XMLHandler();
 
     var reqText = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' " +
         "xmlns:web='http://webservice.bccsgw.viettel.com/'>" +
