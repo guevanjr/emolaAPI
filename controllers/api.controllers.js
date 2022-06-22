@@ -140,7 +140,7 @@ exports.sendPayment = async function(req, res) {
                 var original = DOMParser.parseFromString(originalResponse);
                 var originalError = xpath.select("//errorCode", original); 
                 var originalMessage = xpath.select("//message", original); 
-                var originalRequest = xpath.select("//reqeustid", original); 
+                var originalRequest = xpath.select("//reqeustId", original); 
 
                 var response = 'Error: ' + responseError[0].firstChild +
                 //'\nDescription: ' + responseDescription[0].firstChild + 
