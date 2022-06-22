@@ -8,12 +8,19 @@ const userName = 'd609baa5ba374a7e89f74f99c33ad761';
 const passWord = '09671efad19a4d85f2960fde2812339e';
 const partnerCode = '904533';
 const key = 'LZEW3q2RDfJ231xnYie38';
+const crypto = require('crypto');
+
+function randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+}
 
 exports.receivePayment = async function(req, res) {
     var phoneNumber = '861401090';
     var messageText = 'Test e-Mola API';
     var amount = 1;
-    var transId = '0123456789';
+    var transId = randomString(30, 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890');
     var language = 'pt';
     var refNo = '9876543210';
 
@@ -55,7 +62,7 @@ exports.receivePayment = async function(req, res) {
                 var response = '';
                 parseString(req.body, function (err, result) {
                     response = result;
-                    res.send(JSON.parse(response));
+                    res.send(result);
                 });
                 //var response = xmlHandler.xmlToJson(null, req.body, null);
             }
@@ -66,7 +73,7 @@ exports.sendPayment = async function(req, res) {
     var phoneNumber = '861401090';
     var messageText = 'Test e-Mola API';
     var amount = 1;
-    var transId = '0123456789';
+    var transId = randomString(30, 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890');;
 
     var reqText = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' " +
         "xmlns:web='http://webservice.bccsgw.viettel.com/'>" +
@@ -102,7 +109,7 @@ exports.sendPayment = async function(req, res) {
                 var response = '';
                 parseString(req.body, function (err, result) {
                     response = result;
-                    res.send(JSON.parse(response));
+                    res.send(result);
                 });
                 //var response = xmlHandler.xmlToJson(null, req.body, null);
             }
@@ -148,7 +155,7 @@ exports.accountName = async function(req, res) {
                 var response = '';
                 parseString(req.body, function (err, result) {
                     response = result;
-                    res.send(JSON.parse(response));
+                    res.send(result);
                 });
                 //var response = xmlHandler.xmlToJson(null, req.body, null);
             }
@@ -161,7 +168,7 @@ exports.approvalStatus = async function(req, res) {
 };
 
 exports.getBalance = async function(req, res) {
-    var transId = '0123456789';
+    var transId = randomString(30, 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890');;
 
     var reqText = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' " +
         "xmlns:web='http://webservice.bccsgw.viettel.com/'>" +
@@ -194,7 +201,7 @@ exports.getBalance = async function(req, res) {
                 var response = '';
                 parseString(req.body, function (err, result) {
                     response = result;
-                    res.send(JSON.parse(response));
+                    res.send(result);
                 });
                 //var response = xmlHandler.xmlToJson(null, req.body, null);
             }
