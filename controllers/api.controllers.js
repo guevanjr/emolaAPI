@@ -14,7 +14,7 @@ exports.receivePayment = async function(req, res) {
     var language = 'pt';
     var refNo = '9876543210';
 
-    var reqText = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'" +
+    var reqText = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' " +
         "xmlns:web='http://webservice.bccsgw.viettel.com/'>" +
         "<soapenv:Header/>" +
         "<soapenv:Body>" +
@@ -44,8 +44,10 @@ exports.receivePayment = async function(req, res) {
         }, function(error, resp, body){
             if (error) {
                 console.log('*** ERROR ***\n ' + error + '\n *** END ERROR ***');
+                res.send(error);
             } else {
                 console.log('*** SUCCESS ***\n' + resp.body + '\n*** END SUCCESS ***');
+                res.send(body);
             }
         });
 };
