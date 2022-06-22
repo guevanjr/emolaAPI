@@ -15,7 +15,7 @@ function randomString(length, chars) {
 }
 
 function replaceAll(str, find, replace) {
-    return str.replace(new RegExp(find, 'g'), replace);
+    return str.toString().replace(new RegExp(find, 'g'), replace);
 }
 
 exports.receivePayment = async function(req, res) {
