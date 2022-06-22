@@ -66,8 +66,8 @@ exports.receivePayment = async function(req, res) {
                 originalResponse = originalResponse.toString().replace('&lt;', '<');
 
                 var response = 'Error: ' + responseError[0].firstChild +
-                '\nDescription: ' + responseDescription[0].firstChild + 
-                '\nReturn: ' + responseReturn[0].firstChild + 
+                //'\nDescription: ' + responseDescription[0].firstChild + 
+                //'\nReturn: ' + responseReturn[0].firstChild + 
                 '\nOriginal: ' + responseOriginal[0].firstChild + 
                 '\nTransactio ID: ' + responseTransaction[0].firstChild +
                 '\n\n*** ORIGINAL RESPONSE ***' + 
