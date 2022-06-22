@@ -64,11 +64,11 @@ exports.receivePayment = async function(req, res) {
                 var responseOriginal = xpath.select("//original", document); //document.getElementsByTagName('original');
                 var responseTransaction = xpath.select("//gwtransid", document); //document.getElementsByTagName('gwtransid');
 
-                var response = 'Error: ' + responseError +
-                '\nDescription: ' + responseDescription + 
-                '\nReturn: ' + responseReturn + 
-                '\nOriginal: ' + responseOriginal + 
-                '\nTransactio ID: ' + responseTransaction/* +
+                var response = 'Error: ' + responseError[0].firstChild.data +
+                '\nDescription: ' + responseDescription[0].firstChild.data + 
+                '\nReturn: ' + responseReturn[0].firstChild.data + 
+                '\nOriginal: ' + responseOriginal[0].firstChild.data + 
+                '\nTransactio ID: ' + responseTransaction[0].firstChild.data/* +
                 '\n\n*** ORIGINAL DETAILS ***' + 
                 '\nError Code: ' + document.getElementById('errorCode') +
                 '\nMessage: ' + document.getElementById('message') +
