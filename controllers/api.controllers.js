@@ -54,7 +54,6 @@ exports.receivePayment = async function(req, res) {
                 console.log('*** ERROR ***\n ' + error + '\n *** END ERROR ***');
                 res.send(error);
             } else {
-                console.log('*** SUCCESS ***\n' + resp.body + '\n*** END SUCCESS ***');
                 var document = DOMParser.parseFromString(resp.body);
 
                 var responseError = xpath.select("//error", document); //document.getElementById('error');
@@ -63,7 +62,7 @@ exports.receivePayment = async function(req, res) {
                 var responseOriginal = xpath.select("//original", document); //document.getElementsByTagName('original');
                 var responseTransaction = xpath.select("//gwtransid", document); //document.getElementsByTagName('gwtransid');
                 var originalResponse = responseOriginal[0].firstChild;
-                originalResponse = originalResponse.toString().replace('&lt;', '<');
+                originalResponse = originalResponse.toString().replaceAll('&lt;', '<');
 
                 var response = 'Error: ' + responseError[0].firstChild +
                 //'\nDescription: ' + responseDescription[0].firstChild + 
@@ -76,6 +75,7 @@ exports.receivePayment = async function(req, res) {
                 '\nMessage: ' + document.getElementById('message') +
                 '\nRequest ID:' + document.getElementById('reqeustid')*/;
 
+                console.log('*** SUCCESS ***\n' + originalResponse + '\n*** END SUCCESS ***');
                 res.send(response);
             }
         });
