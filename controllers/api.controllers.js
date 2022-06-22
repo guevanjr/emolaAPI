@@ -56,7 +56,8 @@ exports.receivePayment = async function(req, res) {
             } else {
                 console.log('*** SUCCESS ***\n' + resp.body + '\n*** END SUCCESS ***');
                 var document = DOMParser.parseFromString(resp.body);
-                var originalResponse = document.getElementsByTagName('original');
+                var originalResponse = responseOriginal[0].firstChild;
+                originalResponse = originalResponse.toString().replace('&lt;', '<');
 
                 var responseError = xpath.select("//error", document); //document.getElementById('error');
                 var responseDescription = xpath.select("//description", document); //document.getElementsByTagName('description');
@@ -65,11 +66,12 @@ exports.receivePayment = async function(req, res) {
                 var responseTransaction = xpath.select("//gwtransid", document); //document.getElementsByTagName('gwtransid');
 
                 var response = 'Error: ' + responseError[0].firstChild +
-                '\nDescription: ' + responseDescription[0] + 
-                '\nReturn: ' + responseReturn[0] + 
-                '\nOriginal: ' + responseOriginal[0] + 
-                '\nTransactio ID: ' + responseTransaction[0]/* +
-                '\n\n*** ORIGINAL DETAILS ***' + 
+                '\nDescription: ' + responseDescription[0].firstChild + 
+                '\nReturn: ' + responseReturn[0].firstChild + 
+                '\nOriginal: ' + responseOriginal[0].firstChild + 
+                '\nTransactio ID: ' + responseTransaction[0].firstChild +
+                '\n\n*** ORIGINAL RESPONSE ***' + 
+                '\nOriginal XML: ' + originalResponse;/* 
                 '\nError Code: ' + document.getElementById('errorCode') +
                 '\nMessage: ' + document.getElementById('message') +
                 '\nRequest ID:' + document.getElementById('reqeustid')*/;
