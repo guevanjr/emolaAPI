@@ -1,6 +1,6 @@
 const request = require('request');
 const url = 'http://localhost:5000/';
-const apiUrl = 'https://10.229.16.29:8520/BCCSGateway/BCCSGateway?wsdl'; 
+const apiUrl = 'http://10.229.16.29:8520/BCCSGateway/BCCSGateway?wsdl'; 
 const userName = 'd609baa5ba374a7e89f74f99c33ad761';
 const passWord = '09671efad19a4d85f2960fde2812339e';
 const partnerCode = '904533';
