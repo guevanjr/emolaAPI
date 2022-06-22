@@ -1,6 +1,7 @@
 const request = require('request');
 const strongSoap = require('strong-soap').soap;
-const XMLHandler = strongSoap.XMLHandler;
+const xpath = require('xpath');
+//    , var XMLHandler = strongSoap.XMLHandler;
 var DOMParser = new (require('xmldom')).DOMParser;
 const parseString = require('xml2js').parseString;
 const url = 'http://localhost:5000/';
@@ -64,11 +65,11 @@ exports.receivePayment = async function(req, res) {
                 var originalResponse = document.getElementsByTagName('original');
 
                 //var nodeById = document.getElementById('someId');
-                var responseError = document.getElementById('error');
-                var responseDescription = document.getElementsByTagName('description');
-                var responseReturn = document.getElementsByTagName('return');
-                var responseOriginal = document.getElementsByTagName('original');
-                var responseTransaction = document.getElementsByTagName('gwtransid');
+                var responseError = xpath.select("//error", document); //document.getElementById('error');
+                var responseDescription = xpath.select("//description", document); //document.getElementsByTagName('description');
+                var responseReturn = xpath.select("//return", document); //document.getElementsByTagName('return');
+                var responseOriginal = xpath.select("//original", document); //document.getElementsByTagName('original');
+                var responseTransaction = xpath.select("//gwtransid", document); //document.getElementsByTagName('gwtransid');
 
                 //document = DOMParser.parseFromString(responseOriginal);
 
