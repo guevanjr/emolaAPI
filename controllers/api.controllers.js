@@ -7,7 +7,7 @@ const partnerCode = '904533';
 const key = 'LZEW3q2RDfJ231xnYie38';
 
 exports.receivePayment = async function(req, res) {
-    var phoneNumber = '870457073'; //'258861401090';
+    var phoneNumber = '861401090';
     var messageText = 'Test e-Mola API';
     var amount = 1;
     var transId = '0123456789';
@@ -47,7 +47,7 @@ exports.receivePayment = async function(req, res) {
                 res.send(error);
             } else {
                 console.log('*** SUCCESS ***\n' + resp.body + '\n*** END SUCCESS ***');
-                res.send(body);
+                res.send(JSON.parse(body));
             }
         });
 };
