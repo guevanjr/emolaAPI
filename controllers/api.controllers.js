@@ -81,6 +81,8 @@ exports.receivePayment = async function(req, res) {
                 '\nReturn: ' + responseReturn + 
                 '\nOriginal: ' + responseOriginal + 
                 '\nTransactio ID: ' + responseTransaction;
+
+                res.send(response);
             }
         });
 };
