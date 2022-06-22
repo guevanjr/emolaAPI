@@ -60,14 +60,18 @@ exports.receivePayment = async function(req, res) {
                 res.send(error);
             } else {
                 console.log('*** SUCCESS ***\n' + resp.body + '\n*** END SUCCESS ***');
-                var response = '';
                 var document = DOMParser.parseFromString(resp.body);
+                var originalResponse = document.getElementsByTagName('original');
+
                 //var nodeById = document.getElementById('someId');
-                var responseError = document.getElementsByTagName('error');
+                var responseError = document.getElementsById('errorCode');
                 var responseDescription = document.getElementsByTagName('description');
                 var responseReturn = document.getElementsByTagName('return');
                 var responseOriginal = document.getElementsByTagName('original');
                 var responseTransaction = document.getElementsByTagName('gwtransid');
+
+                document = DOMParser.parseFromString(responseOriginal);
+
                 /*
                 parseString(req.body, function (err, result) {
                     response = result;
@@ -76,11 +80,15 @@ exports.receivePayment = async function(req, res) {
                 //var response = xmlHandler.xmlToJson(null, req.body, null);
                 */
 
-                response = 'Error Code: ' + responseError +
+                var response = 'Error: ' + responseError +
                 '\nDescription: ' + responseDescription + 
                 '\nReturn: ' + responseReturn + 
                 '\nOriginal: ' + responseOriginal + 
-                '\nTransactio ID: ' + responseTransaction;
+                '\nTransactio ID: ' + responseTransaction +
+                '\n\n*** ORIGINAL DETAILS ***' + 
+                '\nError Code: ' + document.getElementsById('errorCode') +
+                '\nMessage: ' + document.getElementsById('message') +
+                '\nRequest ID:' + document.getElementsById('reqeustid');
 
                 res.send(response);
             }
