@@ -14,30 +14,28 @@ exports.receivePayment = async function(req, res) {
     var language = 'pt';
     var refNo = '9876543210';
 
-    var reqText = '<soapenv:Envelope' +    
-        'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"' +
-        'xmlns:web="http://webservice.bccsgw.viettel.com/">' +
-        '<soapenv:Header/>' +
-        '<soapenv:Body>' +
-        '<web:gwOperation>' +
-        '<Input>' +
-        '<username>' + userName + '</username>' +
-        '<password>' + passWord + '</password>' +
-        '<wscode>pushUssdMessage</wscode>' +
-        '<!--Zero or more repetitions:-->' +
-        '<param name="partnerCode" value="' + partnerCode + '"/>' +
-        '<param name="msisdn" value="' + phoneNumber + '"/>' +
-        '<param name="smsContent" value="' + messageText + '"/>' +
-        '<param name="transAmount" value="' + amount + '"/>' +
-        '<param name="transId" value="' + transId + '"/>' +
-        '<param name="language" value="' + language + '"/>' +
-        '<param name="refNo" value="' + refNo + '"/>' +
-        '<param name="key" value="' + key + '"/>' +
-        '<rawData>?</rawData>' +
-        '</Input>' +
-        '</web:gwOperation>' +
-        '</soapenv:Body>' +
-        '</soapenv:Envelope>';
+    var reqText = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'" +
+        "xmlns:web='http://webservice.bccsgw.viettel.com/'>" +
+        "<soapenv:Header/>" +
+        "<soapenv:Body>" +
+        "<web:gwOperation>" +
+        "<Input>" +
+        "<username>" + userName + "</username>" +
+        "<password>" + passWord + "</password>" +
+        "<wscode>pushUssdMessage</wscode>" +
+        "<param name='partnerCode' value='" + partnerCode + "'/>" +
+        "<param name='msisdn' value='" + phoneNumber + "'/>" +
+        "<param name='smsContent' value='" + messageText + "'/>" +
+        "<param name='transAmount' value='" + amount + "'/>" +
+        "<param name='transId' value='" + transId + "'/>" +
+        "<param name='language' value='" + language + "'/>" +
+        "<param name='refNo' value='" + refNo + "'/>" +
+        "<param name='key' value='" + key + "'/>" +
+        "<rawData>?</rawData>" +
+        "</Input>" +
+        "</web:gwOperation>" +
+        "</soapenv:Body>" +
+        "</soapenv:Envelope>";
 
         request.post({
             headers: {'content-type': 'text/xml;charset=UTF-8'},
