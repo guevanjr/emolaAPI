@@ -55,7 +55,7 @@ exports.receivePayment = async function(req, res) {
                 var response = '';
                 parseString(req.body, function (err, result) {
                     response = result;
-                    res.send(JSON.parse(response));
+                    res.send(response);
                 });
                 //var response = xmlHandler.xmlToJson(null, req.body, null);
             }
