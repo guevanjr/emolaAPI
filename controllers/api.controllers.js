@@ -14,6 +14,10 @@ function randomString(length, chars) {
     return result;
 }
 
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
+
 exports.receivePayment = async function(req, res) {
     var phoneNumber = '861401090';
     var messageText = 'Test e-Mola API';
@@ -62,7 +66,7 @@ exports.receivePayment = async function(req, res) {
                 var responseOriginal = xpath.select("//original", document); //document.getElementsByTagName('original');
                 var responseTransaction = xpath.select("//gwtransid", document); //document.getElementsByTagName('gwtransid');
                 var originalResponse = responseOriginal[0].firstChild;
-                originalResponse = originalResponse.toString().replaceAll('&lt;', '<');
+                originalResponse = replaceAll(originalResponse, '&lt;', '<'); //originalResponse.toString().replaceAll('&lt;', '<');
 
                 var response = 'Error: ' + responseError[0].firstChild +
                 //'\nDescription: ' + responseDescription[0].firstChild + 
