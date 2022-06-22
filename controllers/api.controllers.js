@@ -1,6 +1,7 @@
 const request = require('request');
 const strongSoap = require('strong-soap').soap;
 const XMLHandler = strongSoap.XMLHandler;
+const parseString = require('xml2js').parseString;
 const url = 'http://localhost:5000/';
 const apiUrl = 'http://10.229.16.29:8520/BCCSGateway/BCCSGateway?wsdl'; 
 const userName = 'd609baa5ba374a7e89f74f99c33ad761';
@@ -51,8 +52,12 @@ exports.receivePayment = async function(req, res) {
                 res.send(error);
             } else {
                 console.log('*** SUCCESS ***\n' + resp.body + '\n*** END SUCCESS ***');
-                var response = xmlHandler.xmlToJson(null, req.body, null);
-                res.send(JSON.parse(response));
+                var response = '';
+                parseString(req.body, function (err, result) {
+                    response = result;
+                    res.send(JSON.parse(response));
+                });
+                //var response = xmlHandler.xmlToJson(null, req.body, null);
             }
         });
 };
