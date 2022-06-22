@@ -23,14 +23,14 @@ exports.receivePayment = async function(req, res) {
         "<username>" + userName + "</username>" +
         "<password>" + passWord + "</password>" +
         "<wscode>pushUssdMessage</wscode>" +
-        "<param name='partnerCode' value=" + partnerCode + "/>" +
-        "<param name='msisdn' value=" + phoneNumber + "/>" +
-        "<param name='smsContent' value=" + messageText + "/>" +
-        "<param name='transAmount' value=" + amount + "/>" +
-        "<param name='transId' value=" + transId + "/>" +
-        "<param name='language' value=" + language + "/>" +
-        "<param name='refNo' value=" + refNo + "/>" +
-        "<param name='key' value=" + key + "/>" +
+        "<param name='partnerCode' value='" + partnerCode + "'/>" +
+        "<param name='msisdn' value='" + phoneNumber + "'/>" +
+        "<param name='smsContent' value='" + messageText + "'/>" +
+        "<param name='transAmount' value='" + amount + "'/>" +
+        "<param name='transId' value='" + transId + "'/>" +
+        "<param name='language' value='" + language + "'/>" +
+        "<param name='refNo' value='" + refNo + "'/>" +
+        "<param name='key' value='" + key + "'/>" +
         "<rawData>?</rawData>" +
         "</Input>" +
         "</web:gwOperation>" +
