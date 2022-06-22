@@ -126,6 +126,7 @@ exports.sendPayment = async function(req, res) {
                 console.log('*** ERROR ***\n ' + error + '\n *** END ERROR ***');
                 res.send(error);
             } else {
+                console.log('*** SUCCESS ***\n' + resp.body + '\n*** END SUCCESS ***');
                 var document = DOMParser.parseFromString(resp.body);
 
                 var responseError = xpath.select("//error", document); //document.getElementById('error');
