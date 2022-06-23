@@ -71,7 +71,7 @@ exports.receivePayment = async function(req, res) {
                 var original = DOMParser.parseFromString(originalResponse);
                 var originalError = xpath.select("//errorCode", original); 
                 var originalMessage = xpath.select("//message", original); 
-                var originalRequest = xpath.select("//reqeustid", original); 
+                var originalRequest = xpath.select("//reqeustId", original); 
 
                 console.log('*** SUCCESS ***\n' + resp.body + '\nOriginal Response: ' + originalResponse + '\n*** END SUCCESS ***');
 
