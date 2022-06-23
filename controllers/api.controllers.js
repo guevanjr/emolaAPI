@@ -158,7 +158,70 @@ exports.sendPayment = async function(req, res) {
 };
 
 exports.paymentStatus = async function(req, res) {
+    var transactionNumber = '';
+    var transactionType = '';
 
+    var reqText = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' " +
+        "xmlns:web='http://webservice.bccsgw.viettel.com/'>" +
+        "<soapenv:Header/>" +
+        "<soapenv:Body>" +
+        "<web:gwOperation>" +
+        "<Input>" +
+        "<username>" + userName + "</username>" +
+        "<password>" + passWord + "</password>" +
+        "<wscode>pushUssdQueryTrans</wscode>" +
+        "<param name='partnerCode' value='" + partnerCode + "'/>" +
+        "<param name='transId' value='" + transactionNumber + "'/>" +
+        "<param name='key' value='" + key + "'/>" +
+        "<param name='transType' value='" + transactionType + "'/>" +
+        "<rawData>?</rawData>" +
+        "</Input>" +
+        "</web:gwOperation>" +
+        "</soapenv:Body>" +
+        "</soapenv:Envelope>";
+
+    request.post({
+        headers: {'content-type': 'text/xml;charset=UTF-8'},
+        url:     apiUrl,
+        body:    reqText
+    }, function(error, resp, body){
+        if (error) {
+            console.log('*** ERROR ***\n ' + error + '\n *** END ERROR ***');
+            res.send(error);
+        } else {
+            console.log('*** SUCCESS ***\n' + resp.body + '\n*** END SUCCESS ***');
+            var document = DOMParser.parseFromString(resp.body);
+
+            var responseError = xpath.select("//error", document); //document.getElementById('error');
+            //var responseDescription = xpath.select("//description", document); //document.getElementsByTagName('description');
+            //var responseReturn = xpath.select("//return", document); //document.getElementsByTagName('return');
+            var responseOriginal = xpath.select("//original", document); //document.getElementsByTagName('original');
+            var responseTransaction = xpath.select("//gwtransid", document); //document.getElementsByTagName('gwtransid');
+            var originalResponse = responseOriginal[0].firstChild;
+            originalResponse = replaceAll(originalResponse, '&lt;', '<'); //originalResponse.toString().replaceAll('&lt;', '<');
+
+            var original = DOMParser.parseFromString(originalResponse);
+            var originalError = xpath.select("//errorCode", original); 
+            var originalMessage = xpath.select("//message", original); 
+            var originalRespCode = xpath.select("//orgResponseCode", original); 
+            var originalRespMessage = xpath.select("//orgResponseMessage", original); 
+            var originalRequest = xpath.select("//reqeustId", original); 
+
+            var response = 'Error: ' + responseError[0].firstChild +
+            //'\nDescription: ' + responseDescription[0].firstChild + 
+            //'\nReturn: ' + responseReturn[0].firstChild + 
+            '\nTransactio ID: ' + responseTransaction[0].firstChild +
+            '\n\n*** ORIGINAL RESPONSE ***' + 
+            '\nError Code: ' + originalError[0].firstChild +
+            '\nMessage: ' + originalMessage[0].firstChild +
+            '\nResponse Code: ' + originalRespCode[0].firstChild +
+            '\nResponse Message: ' + originalRespMessage[0].firstChild +
+            '\nRequest ID: ' + originalRequest[0].firstChild;
+
+            console.log('*** SUCCESS ***\n' + originalResponse + '\n*** END SUCCESS ***');
+            res.send(response);
+        }
+    });
 };
 
 exports.accountName = async function(req, res) {
