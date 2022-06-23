@@ -160,8 +160,8 @@ exports.sendPayment = async function(req, res) {
 };
 
 exports.paymentStatus = async function(req, res) {
-    var transactionNumber = '';
-    var transactionType = '';
+    var transactionNumber = '904533220623000000085131';
+    var transactionType = 'C2B';
 
     var reqText = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' " +
         "xmlns:web='http://webservice.bccsgw.viettel.com/'>" +
